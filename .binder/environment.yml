@@ -1,0 +1,9 @@
+name: notebook
+channels:
+  - terradue
+  - conda-forge
+dependencies:
+  - python
+  - jupyterlab
+  - mamba
+  - nb_conda
