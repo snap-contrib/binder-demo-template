@@ -35,3 +35,35 @@ RUN  mkdir -p /var/lib/dpkg/alternatives && \
     mkdir -p /var/lib/dpkg/updates/ && \
     touch /var/lib/dpkg/info/format-new && \
     touch /var/lib/dpkg/status
+
+ENV LC_ALL=en_US.UTF-8                                                  \
+    LANG=en_US.UTF-8                                                    \
+    LANGUAGE=en_US.UTF-8                                                \
+    SHELL=/bin/bash                                                     \
+    PATH=/srv/conda/bin:$PATH                                           \
+    NB_USER=jovyan                                                      \
+    NB_UID=1002                                                         \
+    NB_GID=1002                                                         \
+    USER=jovyan                                                         \ 
+    HOME=/home/jovyan                                                   \
+    CONDA_DIR=/srv/conda/                                               \
+    APP_BASE=/srv 
+    
+RUN groupadd --gid ${NB_GID} ${NB_USER} &&                              \
+    useradd --comment "Default user"                                    \
+            --create-home                                               \
+            --gid ${NB_GID}                                             \
+            --no-log-init                                               \
+            --shell /bin/bash                                           \
+            --uid ${NB_UID} ${NB_USER}
+
+# workspace
+RUN mkdir -p /workspace &&                                              \
+    chown -R ${NB_USER}:${NB_GID} /workspace &&                         \
+    mkdir -p /usr/local/share/jupyter &&                                \
+    chown -R ${NB_USER}:${NB_GID} /usr/local/share/jupyter &&           \
+    chmod 440 /etc/sudoers.d/playground-sudo
+
+USER ${NB_USER}
+
+WORKDIR /workspace
