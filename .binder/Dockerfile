@@ -8,9 +8,9 @@ ENV BASH_ENV=~/.bashrc                                                          
     SHELL=/bin/bash \
     HOME=/root
 
-ADD environment.yml /tmp/environment.yml
-ADD start /usr/bin/start
-COPY activate-conda.sh /etc/profile.d/activate-conda.sh
+ADD .binder/environment.yml /tmp/environment.yml
+ADD .binder/start /usr/bin/start
+COPY .binder/activate-conda.sh /etc/profile.d/activate-conda.sh
 
 
 RUN apt-get update                                                                                                          && \
