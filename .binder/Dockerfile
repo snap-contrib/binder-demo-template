@@ -9,7 +9,7 @@ ENV BASH_ENV=~/.bashrc                                                          
     HOME=/root
 
 ADD .binder/environment.yml /tmp/environment.yml
-ADD .binder/start /usr/bin/start
+#ADD .binder/start /usr/bin/start
 COPY .binder/activate-conda.sh /etc/profile.d/activate-conda.sh
 
 
@@ -23,9 +23,10 @@ RUN apt-get update                                                              
     micromamba create -f /tmp/environment.yml                                                                               && \                                                              
     cd /tmp                                                                                                                 && \
     rm -fr /srv/conda/pkgs                                                                                                  && \
-    rm -fr /tmp/*                                                                                                           && \
-    chmod 755 /usr/bin/start                                                                                                && \
-    mkdir /workspace
+    rm -fr /tmp/*   
+      #                                                                                                      && \
+    #chmod 755 /usr/bin/start                                                                                                && \
+    #mkdir /workspace
 
 RUN mkdir -p /root/.jupyter/lab/user-settings/@jupyterlab/apputils-extension/ && \
     echo '{ "theme":"JupyterLab Dark" }' >  /root/.jupyter/lab/user-settings/@jupyterlab/apputils-extension/themes.jupyterlab-settings
@@ -59,6 +60,10 @@ RUN mkdir -p /workspace &&                                              \
     chown -R ${NB_USER}:${NB_GID} /workspace &&                         \
     mkdir -p /usr/local/share/jupyter &&                                \
     chown -R ${NB_USER}:${NB_GID} /usr/local/share/jupyter
+
+EXPOSE 8888 
+
+ADD .binder/jupyter_notebook_config.py /etc/jupyter/jupyter_notebook_config.py
 
 USER ${NB_USER}
 
