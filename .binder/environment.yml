@@ -7,3 +7,4 @@ dependencies:
   - jupyterlab
   - mamba
   - nb_conda
+  - snapista
