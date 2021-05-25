@@ -40,8 +40,8 @@ RUN  mkdir -p /var/lib/dpkg/alternatives && \
 ENV SHELL=/bin/bash                                                     \
     PATH=/srv/conda/bin:$PATH                                           \
     NB_USER=jovyan                                                      \
-    NB_UID=1002                                                         \
-    NB_GID=1002                                                         \
+    NB_UID=1000                                                         \
+    NB_GID=1000                                                         \
     USER=jovyan                                                         \ 
     HOME=/home/jovyan                                                   \
     CONDA_DIR=/srv/conda/                                               \
@@ -65,6 +65,10 @@ EXPOSE 8888
 
 ADD .binder/jupyter_notebook_config.py /etc/jupyter/jupyter_notebook_config.py
 
+# Make sure the contents of our repo are in ${HOME}
+COPY . ${HOME}
+USER root
+RUN chown -R ${NB_UID} ${HOME}
 USER ${NB_USER}
 
 WORKDIR /workspace
