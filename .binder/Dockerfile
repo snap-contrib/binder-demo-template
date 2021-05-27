@@ -1,10 +1,15 @@
 FROM terradue/docker-snap:latest
 
-USER root
+USER jovyan
 
-ADD environment.yml /tmp/environment.yml
+COPY --chown=1000:1000 . ${HOME}
 
-RUN mamba env create -n notebook -f /tmp/environment.yml
+RUN mamba env create -n notebook -f ${HOME}/environment.yml
+
+RUN test -f ${HOME}/environment.yml && mamba update -p /srv/conda/envs/notebook -f ${HOME}/environment.yml  && \
+    test -f ${HOME}/postBuild && chmod +x ${HOME}/postBuild && ${HOME}/postBuild || exit 0
+
+ENV PATH=/srv/conda/envs/notebook/bin:${PATH}
 
 EXPOSE 8888
 
