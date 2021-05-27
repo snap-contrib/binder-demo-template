@@ -1,17 +1,12 @@
 FROM terradue/docker-snap:latest
 
-USER root
+USER jovyan
 
-RUN usermod -u 1000 jovyan   && \
-    groupmod -g 1000 jovyan
-
-RUN chown -R jovyan:jovyan /srv/conda/envs/env_snap
-RUN chown -R jovyan:jovyan /srv/conda/pkgs/cache
+#RUN chown -R jovyan:jovyan /srv/conda/envs/env_snap
+#RUN chown -R jovyan:jovyan /srv/conda/pkgs/cache
 RUN mamba update -p /srv/conda -f ${HOME}/.binder/environment.yml
 
 COPY --chown=jovyan:jovyan . /home/jovyan
-
-USER jovyan
 
 RUN test -f ${HOME}/environment.yml && mamba update -p /srv/conda/envs/env_snap -f ${HOME}/environment.yml  && \
     test -f ${HOME}/postBuild && chmod +x ${HOME}/postBuild && ${HOME}/postBuild || exit 0
@@ -19,3 +14,9 @@ RUN test -f ${HOME}/environment.yml && mamba update -p /srv/conda/envs/env_snap 
 EXPOSE 8888
 
 WORKDIR /home/jovyan
+
+
+USER root
+RUN usermod -u 1000 jovyan   && \
+    groupmod -g 1000 jovyan
+USER jovyan
