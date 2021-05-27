@@ -2,10 +2,12 @@ FROM terradue/docker-snap:latest
 
 USER root
 
-RUN usermod -u 1000 jovyan
-RUN groupmod -g 1000 jovyan
-RUN chown -R jovyan:jovyan /srv/conda/
- 
+RUN usermod -u 1000 jovyan   && \
+    groupmod -g 1000 jovyan
+
+RUN chown -R jovyan:jovyan /srv/conda/envs/env_snap
+RUN chown -R jovyan:jovyan /srv/conda/pkgs/cache
+
 USER jovyan
 
 COPY --chown=jovyan:jovyan . ${HOME}
