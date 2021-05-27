@@ -4,11 +4,12 @@ USER jovyan
 
 #RUN chown -R jovyan:jovyan /srv/conda/envs/env_snap
 #RUN chown -R jovyan:jovyan /srv/conda/pkgs/cache
-RUN mamba update -p /srv/conda -f ${HOME}/.binder/environment.yml
 
 COPY --chown=jovyan:jovyan . /home/jovyan
 
-RUN test -f ${HOME}/environment.yml && mamba update -p /srv/conda/envs/env_snap -f ${HOME}/environment.yml  && \
+RUN mamba env update -p /srv/conda -f ${HOME}/.binder/environment.yml
+
+RUN test -f ${HOME}/environment.yml && mamba env update -p /srv/conda/envs/env_snap -f ${HOME}/environment.yml  && \
     test -f ${HOME}/postBuild && chmod +x ${HOME}/postBuild && ${HOME}/postBuild || exit 0
 
 EXPOSE 8888
