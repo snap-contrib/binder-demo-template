@@ -1,8 +1,14 @@
 FROM terradue/docker-snap:latest
 
+USER root
+
+RUN usermod -u 1000 jovyan
+RUN groupmod -g 1000 jovyan
+RUN chown -R jovyan:jovyan /srv/conda/envs/
+ 
 USER jovyan
 
-COPY --chown=1000:1000 . ${HOME}
+COPY --chown=jovyan:jovyan . ${HOME}
 
 RUN mamba env create -n notebook -f ${HOME}/.binder/environment.yml
 
