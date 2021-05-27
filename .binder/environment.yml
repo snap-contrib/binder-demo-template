@@ -1,10 +1,11 @@
-name: notebook
-channels:
-  - terradue
-  - conda-forge
 dependencies:
-  - python=3.7
+  - python
   - jupyterlab
-  - mamba
+  - nbconvert
   - nb_conda
-  - snapista
+  - conda-build
+  - mamba
+  - pip:
+    - jupyter-server-proxy
+  - cookiecutter
+  - nodejs
