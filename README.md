@@ -41,6 +41,20 @@ RUN test -f ${HOME}/environment.yml && mamba env update -p /srv/conda/envs/env_s
     test -f ${HOME}/postBuild && chmod +x ${HOME}/postBuild && ${HOME}/postBuild || exit 0
 ```
 
+### Update SNAP modules
+
+SNAP modules can be installed in a `postBuild` bash script. 
+
+Below an example:
+
+```bash
+#!/bin/bash
+
+export PREFIX=/srv/conda/envs/env_snap
+
+( cmdpid=$BASHPID; (sleep 60; kill $cmdpid) & exec $PREFIX/snap/bin/snap --nosplash --nogui --modules --update org.esa.snap.snap.ndvi )
+```
+
 ### Testing the docker image 
 
 You can test the docker image before pushing your changes to GitHub with:
