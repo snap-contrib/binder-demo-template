@@ -16,7 +16,7 @@ Below an example
 channels:
  - conda-forge
 dependencies:
- - gdal
+ - <your conda package>
 ```
 
 ### Update other dependencies
@@ -52,12 +52,15 @@ docker build -f .binder/Dockerfile -t img-test .
 And once built, do:
 
 ```console
-docker run --rm -it -p 8888:8888 img-test:latest jupyter lab --port=8888 --ip=0.0.0.0 --NotebookApp.token='' --no-browser
+docker run --rm -it -p 8888:8888 -v $PWD:/home/jovyan img-test:latest jupyter lab --port=8888 --ip=0.0.0.0 --NotebookApp.token='' --no-browser
 ```
 
 And open a browser tab at http://0.0.0.0:8888/lab
 
 <hr>
+
+Now delete everything above and create your README here.
+Don't forget to update the Binder URL
 
 ## Run me on Binder 
 
