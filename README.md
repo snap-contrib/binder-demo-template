@@ -43,7 +43,7 @@ RUN test -f ${HOME}/environment.yml && mamba env update -p /srv/conda/envs/env_s
 
 ### Update SNAP modules
 
-SNAP modules can be installed in a `postBuild` bash script. 
+SNAP modules can be updated or installed in a `postBuild` bash script. 
 
 Below an example:
 
