@@ -2,6 +2,9 @@ FROM terradue/docker-snap-binder:latest
 
 USER root
 # install additional packages here
+RUN apt-get install tree
+
+RUN chown -R jovyan:jovyan /srv/conda
 
 USER jovyan
 
