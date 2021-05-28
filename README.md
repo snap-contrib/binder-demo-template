@@ -64,4 +64,4 @@ Don't forget to update the Binder URL
 
 ## Run me on Binder 
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/snap-contrib/binder-demo-template/HEAD)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/snap-contrib/binder-demo-template/HEAD?urlpath=lab)
